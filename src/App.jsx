@@ -31,15 +31,15 @@ const sectionStars = [
 ];
 
 const milestones = [
-  { x: 5, y: 62, when: "2024", what: "아르테크네 우수상", big: true },
-  { x: 16, y: 30, when: "2024", what: "Global AI Ambassador 우수 활동자" },
-  { x: 27, y: 64, when: "2025", what: "오픈소스 팀프로젝트 팀장" },
-  { x: 38, y: 28, when: "2026.02", what: "ADsP 취득" },
-  { x: 49, y: 62, when: "2026 상반기", what: "AHP 논문 KCI 등재", big: true },
-  { x: 60, y: 26, when: "2026 여름", what: "FINDS Lab 연구인턴 · KCI 논문", big: true },
-  { x: 71, y: 60, when: "2026", what: "기업메이커 SGCC 우수상", big: true },
-  { x: 82, y: 28, when: "2026.09", what: "BDAI 실전반 수료" },
-  { x: 94, y: 60, when: "2026", what: "KAI 항공우주논문상 심사 중", dim: true },
+  { x: 5, y: 62, when: "2024", what: "아르테크네 우수상", big: true, detail: "가천대학교 아르테크네 2024 공모전. CSO 역할로 참가해 우수상을 받았습니다." },
+  { x: 16, y: 30, when: "2024", what: "Global AI Ambassador 우수 활동자", detail: "VANK 글로벌 AI 앰배서더. 홍보 및 정책 제안 활동으로 우수 활동자에 선정됐습니다." },
+  { x: 27, y: 64, when: "2025", what: "오픈소스 팀프로젝트 팀장", detail: "Open Source SW 텀프로젝트. HuggingFace 기반 한국어 감정 분석을 개발하며 팀장으로 저장소 관리와 결과물 통합을 맡았습니다." },
+  { x: 38, y: 28, when: "2026.02", what: "ADsP 취득", detail: "데이터분석 준전문가(ADsP) 자격 취득. 한국데이터산업진흥원, 제48회." },
+  { x: 49, y: 62, when: "2026 상반기", what: "AHP 논문 KCI 등재", big: true, detail: "「경영대학 대학생의 취업 시 기업 선택 요인에 관한 우선순위 분석: AHP 기법을 중심으로」. 지도교수님·수강생과 공동 집필, KCI 등재." },
+  { x: 60, y: 26, when: "2026 여름", what: "FINDS Lab 연구인턴 · KCI 논문", big: true, detail: "FINDS Lab 학부 연구인턴 3기(6/28~8/31) 수료. 「환율변동성의 수익률곡선 전달과 경기 예측력의 분리」 작성, KCI 게재 예정." },
+  { x: 71, y: 60, when: "2026", what: "기업메이커 SGCC 우수상", big: true, detail: "꿈꾸는 기업메이커 SGCC, CEO. SSG 배송 경로 최적화로 이동거리 34% 감소·연 CO₂ 9.13톤 절감을 정량화하고 ESG 전략을 수립해 우수상." },
+  { x: 82, y: 28, when: "2026.09", what: "BDAI 실전반 수료", detail: "AI 빅데이터 학회 B.D.A.I 12기. 데이터 분석 실전반(지표설계 및 고객분석) 수료, 2026.03~08." },
+  { x: 94, y: 60, when: "2026", what: "KAI 항공우주논문상 심사 중", dim: true, detail: "KAI(한국항공우주산업) 항공우주논문상 2026. 논문을 제출했고 현재 심사 중입니다." },
 ];
 
 const projects = [
@@ -141,12 +141,23 @@ function Home({ go }) {
             <line x1={last.x} y1={last.y} x2={dimStar.x} y2={dimStar.y} stroke="rgba(255,255,255,.18)" strokeWidth=".5" strokeDasharray="1.2 1.2" />
           </svg>
           {milestones.map((m) => (
-            <div key={m.what} className={`star${m.big ? " big" : ""}${m.dim ? " dim" : ""}`} style={{ left: `${m.x}%`, top: `${m.y}%` }}>
+            <div
+              key={m.what}
+              className={`star${m.big ? " big" : ""}${m.dim ? " dim" : ""}${m.y < 45 ? " below" : ""}${m.x > 80 ? " edge-r" : m.x < 20 ? " edge-l" : ""}`}
+              style={{ left: `${m.x}%`, top: `${m.y}%` }}
+              tabIndex={0}
+              aria-label={`${m.when} ${m.what}. ${m.detail}`}
+            >
               <i />
               <span>
                 <em>{m.when}</em>
                 {m.what}
               </span>
+              <div className="tip" role="tooltip">
+                <b>{m.what}</b>
+                <em>{m.when}</em>
+                {m.detail}
+              </div>
             </div>
           ))}
         </div>

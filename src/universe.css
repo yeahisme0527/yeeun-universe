@@ -85,6 +85,31 @@ button { font: inherit; color: inherit; }
 .star.big i { width: 12px; height: 12px; box-shadow: 0 0 0 6px rgba(255,255,255,.14), 0 0 16px rgba(255,255,255,.55); }
 .star.dim i { background: rgba(255,255,255,.35); box-shadow: 0 0 0 4px rgba(255,255,255,.05); }
 .star.dim span { color: var(--muted); }
+.star { cursor: default; }
+.star:hover i, .star:focus-visible i { background: var(--accent); box-shadow: 0 0 0 8px rgba(207,217,255,.16), 0 0 20px rgba(207,217,255,.8); }
+.star:focus-visible { outline: none; }
+
+/* tooltip (signpost) */
+.star .tip {
+  position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translate(-50%, 6px);
+  width: 260px; background: #0c1232; border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px;
+  font-size: .8rem; font-weight: 500; color: var(--ink); line-height: 1.55; text-align: left; white-space: normal;
+  box-shadow: 0 14px 34px rgba(0,0,0,.5); opacity: 0; pointer-events: none; z-index: 20;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.star .tip b { display: block; font-weight: 700; font-size: .86rem; }
+.star .tip em { display: block; font-style: normal; color: var(--accent); font-size: .74rem; margin: 1px 0 5px; }
+.star .tip::after { content: ""; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); border: 7px solid transparent; border-top-color: #0c1232; }
+.star:hover .tip, .star:focus-visible .tip, .star:focus-within .tip { opacity: 1; transform: translate(-50%, 0); }
+.star.below .tip { bottom: auto; top: calc(100% + 12px); transform: translate(-50%, -6px); }
+.star.below:hover .tip, .star.below:focus-visible .tip { transform: translate(-50%, 0); }
+.star.below .tip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #0c1232; }
+.star.edge-r .tip { left: auto; right: -8px; transform: translate(0, 6px); }
+.star.edge-r:hover .tip, .star.edge-r:focus-visible .tip { transform: translate(0, 0); }
+.star.edge-r .tip::after { left: auto; right: 14px; transform: none; }
+.star.edge-l .tip { left: -8px; transform: translate(0, 6px); }
+.star.edge-l:hover .tip, .star.edge-l:focus-visible .tip { transform: translate(0, 0); }
+.star.edge-l .tip::after { left: 14px; transform: none; }
 
 /* ---------- log ---------- */
 .log { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
