@@ -100,15 +100,17 @@ button { font: inherit; color: inherit; }
 .star .tip b { display: block; font-weight: 700; font-size: .86rem; }
 .star .tip em { display: block; font-style: normal; color: var(--accent); font-size: .74rem; margin: 1px 0 5px; }
 .star .tip::after { content: ""; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); border: 7px solid transparent; border-top-color: #0c1232; }
-.star:hover .tip, .star:focus-visible .tip, .star:focus-within .tip { opacity: 1; transform: translate(-50%, 0); }
+.star:hover .tip, .star:focus-visible .tip, .star:focus-within .tip, .star.open .tip { opacity: 1; transform: translate(-50%, 0); }
+.star.open i { background: var(--accent); box-shadow: 0 0 0 8px rgba(207,217,255,.16), 0 0 20px rgba(207,217,255,.8); }
+.star { cursor: pointer; }
 .star.below .tip { bottom: auto; top: calc(100% + 12px); transform: translate(-50%, -6px); }
-.star.below:hover .tip, .star.below:focus-visible .tip { transform: translate(-50%, 0); }
+.star.below:hover .tip, .star.below:focus-visible .tip, .star.below.open .tip { transform: translate(-50%, 0); }
 .star.below .tip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #0c1232; }
 .star.edge-r .tip { left: auto; right: -8px; transform: translate(0, 6px); }
-.star.edge-r:hover .tip, .star.edge-r:focus-visible .tip { transform: translate(0, 0); }
+.star.edge-r:hover .tip, .star.edge-r:focus-visible .tip, .star.edge-r.open .tip { transform: translate(0, 0); }
 .star.edge-r .tip::after { left: auto; right: 14px; transform: none; }
 .star.edge-l .tip { left: -8px; transform: translate(0, 6px); }
-.star.edge-l:hover .tip, .star.edge-l:focus-visible .tip { transform: translate(0, 0); }
+.star.edge-l:hover .tip, .star.edge-l:focus-visible .tip, .star.edge-l.open .tip { transform: translate(0, 0); }
 .star.edge-l .tip::after { left: 14px; transform: none; }
 
 /* ---------- log ---------- */

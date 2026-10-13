@@ -88,6 +88,7 @@ function BackButton({ onClick }) {
 }
 
 function Home({ go }) {
+  const [open, setOpen] = useState(null);
   const pts = milestones.filter((m) => !m.dim).map((m) => `${m.x},${m.y}`).join(" ");
   const last = milestones[milestones.length - 2];
   const dimStar = milestones[milestones.length - 1];
@@ -140,13 +141,18 @@ function Home({ go }) {
             <polyline points={pts} fill="none" stroke="rgba(255,255,255,.35)" strokeWidth=".5" />
             <line x1={last.x} y1={last.y} x2={dimStar.x} y2={dimStar.y} stroke="rgba(255,255,255,.18)" strokeWidth=".5" strokeDasharray="1.2 1.2" />
           </svg>
-          {milestones.map((m) => (
+          {milestones.map((m, i) => (
             <div
               key={m.what}
-              className={`star${m.big ? " big" : ""}${m.dim ? " dim" : ""}${m.y < 45 ? " below" : ""}${m.x > 80 ? " edge-r" : m.x < 20 ? " edge-l" : ""}`}
+              className={`star${m.big ? " big" : ""}${m.dim ? " dim" : ""}${m.y < 45 ? " below" : ""}${m.x > 80 ? " edge-r" : m.x < 20 ? " edge-l" : ""}${open === i ? " open" : ""}`}
               style={{ left: `${m.x}%`, top: `${m.y}%` }}
               tabIndex={0}
+              role="button"
+              aria-expanded={open === i}
               aria-label={`${m.when} ${m.what}. ${m.detail}`}
+              onClick={() => setOpen(open === i ? null : i)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(open === i ? null : i); } if (e.key === "Escape") setOpen(null); }}
+              onBlur={() => setOpen((o) => (o === i ? null : o))}
             >
               <i />
               <span>
