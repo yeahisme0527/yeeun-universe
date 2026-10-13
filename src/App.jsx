@@ -1,6 +1,27 @@
 import { useEffect, useState } from "react";
 import profileImage from "./assets/profile.png";
 
+const DOC = (f) => `${import.meta.env.BASE_URL}docs/${f}`;
+const LINKS = {
+  teacherguard: "https://github.com/yeahisme0527/teacherguard",
+  teacherguardApp: "https://teacherguard-fvbmbnmh4wij5lqulq8unt.streamlit.app/",
+  esg: "https://github.com/yeahisme0527/esg-dart-kcgs-analysis",
+  movie: "https://github.com/yeahisme0527/korean-movie-review-sentiment",
+  sgcc: "https://github.com/yeahisme0527/sgcc",
+  sgccSite: "https://yeahisme0527.github.io/sgcc/",
+  oss: "https://github.com/yeahisme0527/opensource-term-project-team45",
+  regression: "https://github.com/yeahisme0527/data_mining_analysis_Regression",
+  classification: "https://github.com/yeahisme0527/data_mining_analysis_Classification",
+  wine: "https://github.com/yeahisme0527/ai_datascience",
+  karrot: "https://github.com/yeahisme0527/karrot-market-global-strategy-project",
+  finds: "https://findslab.github.io/site/",
+  kai: "https://www.koreaaero.com/KO/Sustainability/AerospaceJournalPrizeInfo.aspx",
+  ahpDoi: "http://dx.doi.org/10.17703/JCCT.2026.12.5.191",
+  ahpPdf: DOC("ahp-paper-jcct-2026.pdf"),
+  fxPdf: DOC("fx-volatility-yield-curve.pdf"),
+  tgPdf: DOC("teacherguard-overview.pdf"),
+};
+
 const profile = {
   name: "황예은",
   school: "가천대학교 빅데이터경영전공 3학년",
@@ -43,19 +64,19 @@ const milestones = [
 ];
 
 const projects = [
-  { year: "2026", title: "TeacherGuard 티쳐가드", desc: "교사를 학부모 갑질로부터 보호하는 AI 플랫폼. 7유형 실시간 탐지, 증거 보관, 신고서 자동 생성. Streamlit 배포.", links: [["GitHub", "https://github.com/yeahisme0527/teacherguard"]] },
-  { year: "2026", title: "ESG-DART 텍스트 분석", desc: "Kiwi·SBERT로 공시 텍스트를 정량화하고 KCGS 등급과의 연관성을 회귀로 8개 가설 검증.", links: [["GitHub", "https://github.com/yeahisme0527/esg-dart-kcgs-analysis"]] },
-  { year: "2026", title: "한국어 영화 리뷰 감성 분석", desc: "PeCab + TF-IDF 듀얼 피처, LR·ComplementNB 앙상블, MCC 기준 threshold 최적화.", links: [["GitHub", "https://github.com/yeahisme0527/korean-movie-review-sentiment"]] },
-  { year: "2026", title: "SSG 배송 경로 최적화", tag: "우수상", desc: "OR-Tools로 이동거리 34% 감소, 연 CO₂ 9.13톤 절감 정량화. ESG 마케팅 전략, 웹 배포. CEO.", links: [["사이트", "https://yeahisme0527.github.io/sgcc/"], ["GitHub", "https://github.com/yeahisme0527/sgcc"]] },
-  { year: "2025", title: "Korean Sentiment Analysis, 오픈소스", desc: "HuggingFace 기반 한국어 감정 분석. 팀장.", links: [["GitHub", "https://github.com/yeahisme0527/opensource-term-project-team45"]] },
-  { year: "2025", title: "Regression · Classification", desc: "데이터마이닝 수업 회귀·분류 모델 비교와 해석.", links: [["GitHub", "https://github.com/yeahisme0527/data_mining_analysis_Regression"]] },
-  { year: "2025", title: "Wine Quality Data Analysis", desc: "전처리·EDA·상관관계 분석.", links: [["GitHub", "https://github.com/yeahisme0527/ai_datascience"]] },
-  { year: "2024", title: "당근마켓 해외 진출 전략", desc: "교내 기업메이커 공모전. 시장 분석과 플랫폼 전략.", links: [["GitHub", "https://github.com/yeahisme0527/karrot-market-global-strategy-project"]] },
+  { year: "2026", title: "TeacherGuard 티쳐가드", desc: "교사를 학부모 갑질로부터 보호하는 AI 플랫폼. 7유형 실시간 탐지, 증거 보관, 신고서 자동 생성. Streamlit 배포.", links: [["GitHub", LINKS.teacherguard], ["배포 앱", LINKS.teacherguardApp], ["정리 문서 PDF", LINKS.tgPdf]] },
+  { year: "2026", title: "ESG-DART 텍스트 분석", desc: "Kiwi·SBERT로 공시 텍스트를 정량화하고 KCGS 등급과의 연관성을 회귀로 8개 가설 검증.", links: [["GitHub", LINKS.esg]] },
+  { year: "2026", title: "한국어 영화 리뷰 감성 분석", desc: "PeCab + TF-IDF 듀얼 피처, LR·ComplementNB 앙상블, MCC 기준 threshold 최적화.", links: [["GitHub", LINKS.movie]] },
+  { year: "2026", title: "SSG 배송 경로 최적화", tag: "우수상", desc: "OR-Tools로 이동거리 34% 감소, 연 CO₂ 9.13톤 절감 정량화. ESG 마케팅 전략, 웹 배포. CEO.", links: [["사이트", LINKS.sgccSite], ["GitHub", LINKS.sgcc]] },
+  { year: "2025", title: "Korean Sentiment Analysis, 오픈소스", desc: "HuggingFace 기반 한국어 감정 분석. 팀장.", links: [["GitHub", LINKS.oss]] },
+  { year: "2025", title: "Regression · Classification", desc: "데이터마이닝 수업 회귀·분류 모델 비교와 해석.", links: [["GitHub · Regression", LINKS.regression], ["GitHub · Classification", LINKS.classification]] },
+  { year: "2025", title: "Wine Quality Data Analysis", desc: "전처리·EDA·상관관계 분석.", links: [["GitHub", LINKS.wine]] },
+  { year: "2024", title: "당근마켓 해외 진출 전략", desc: "교내 기업메이커 공모전. 시장 분석과 플랫폼 전략.", links: [["GitHub", LINKS.karrot]] },
 ];
 
 const papers = [
-  { year: "2026 여름 · FINDS Lab 연구인턴", title: "환율변동성의 수익률곡선 전달과 경기 예측력의 분리", tag: "KCI 게재 예정", desc: "원/달러 환율변동성이 국채 수익률곡선에 전달되는지, 그 전달이 장단기 금리차를 통제한 뒤에도 경기 수축 국면의 표본외 예측력으로 이어지는지를 2006~2026년 월별 자료로 검증. 표본내 전달과 표본외 예측력이 분리될 수 있음을 보였습니다.", links: [["FINDS Lab 연구실", "https://findslab.github.io/site/"]] },
-  { year: "2026 1학기", title: "경영대학 대학생의 취업 시 기업 선택 요인에 관한 우선순위 분석: AHP 기법을 중심으로", tag: "KCI 등재", desc: "지도교수님·수강생과 공동 집필. 기업 선택 요인을 계층화하고 AHP로 상대적 중요도와 우선순위를 도출했습니다.", links: [] },
+  { year: "2026 여름 · FINDS Lab 연구인턴", title: "환율변동성의 수익률곡선 전달과 경기 예측력의 분리", tag: "KCI 게재 예정", desc: "원/달러 환율변동성이 국채 수익률곡선에 전달되는지, 그 전달이 장단기 금리차를 통제한 뒤에도 경기 수축 국면의 표본외 예측력으로 이어지는지를 2006~2026년 월별 자료로 검증. 표본내 전달과 표본외 예측력이 분리될 수 있음을 보였습니다.", links: [["논문 PDF", LINKS.fxPdf], ["FINDS Lab 연구실", LINKS.finds]] },
+  { year: "2026.09 · The Journal of the Convergence on Culture Technology (JCCT) Vol.12 No.5, pp.191–199", title: "경영대학 대학생의 취업 시 기업 선택 요인에 관한 우선순위 분석: AHP 기법을 중심으로", tag: "KCI 등재", desc: "지도교수님·수강생과 공동 집필(공저). 기업 선택 요인을 재무 상태·기업 이미지 및 규모·복리후생·임금 4개 상위요인으로 구성하고 AHP로 상대적 중요도를 분석. 임금이 가장 높고, 하위요인은 급여체계·신입사원 초임·4대 보험 순으로 나타났습니다.", links: [["논문 PDF", LINKS.ahpPdf], ["DOI", LINKS.ahpDoi]] },
 ];
 
 const goals = [
@@ -64,27 +85,39 @@ const goals = [
   "음성 인식 AI 비서 — 음성 인식, 자연어 이해, 음성 응답 흐름 구현",
 ];
 
+// [제목, 연도, 링크들?]
 const awards = {
-  "공모전·수상": [["꿈꾸는 기업메이커 SGCC — 우수상", "2026"], ["KAI 항공우주논문상 — 심사중", "2026"], ["티쳐가드 — 교육부·KERIS, 미수상", "2026"], ["창원시 BI 프로젝트 공모전", "2025"], ["아르테크네 — 우수상", "2024"]],
-  "인턴·수료·자격": [["FINDS Lab 학부 연구인턴 3기 수료", "2026"], ["BDAI 데이터 분석 실전반 수료", "2026"], ["ADsP 데이터분석 준전문가", "2026"], ["Codeit 데이터 분석 과정 수료", "2024"]],
+  "공모전·수상": [
+    ["꿈꾸는 기업메이커 SGCC — 우수상", "2026", [["사이트", LINKS.sgccSite], ["GitHub", LINKS.sgcc]]],
+    ["KAI 항공우주논문상 — 심사중", "2026", [["공모전 안내", LINKS.kai]]],
+    ["티쳐가드 — 교육부·KERIS, 미수상", "2026", [["GitHub", LINKS.teacherguard], ["배포 앱", LINKS.teacherguardApp]]],
+    ["창원시 BI 프로젝트 공모전", "2025"],
+    ["아르테크네 — 우수상", "2024"],
+  ],
+  "인턴·수료·자격": [
+    ["FINDS Lab 학부 연구인턴 3기 수료", "2026", [["연구실", LINKS.finds], ["논문 PDF", LINKS.fxPdf]]],
+    ["BDAI 데이터 분석 실전반 수료", "2026"],
+    ["ADsP 데이터분석 준전문가", "2026"],
+    ["Codeit 데이터 분석 과정 수료", "2024"],
+  ],
   대외활동: [["Global AI Ambassador — 우수 활동자", ""], ["다문화·탈북 학생 멘토링 — 국어·수학", ""], ["주3만 프로그램 관리자 — 6개월", ""]],
   "학회·스터디": [["BDAI 12기 — 지표설계·고객분석", ""], ["퍼널 분석 스터디", ""]],
 };
 
 // 사진 주위에 흩뿌리는 작은 별: 활동·논문·수료·수상·연락 전부
 const activityItems = [
-  ...projects.map((p) => ({ cat: "프로젝트", name: p.title, detail: p.desc })),
-  ...papers.map((p) => ({ cat: "논문", name: p.title, detail: `${p.tag} · ${p.year}` })),
-  { cat: "인턴", name: "FINDS Lab 학부 연구인턴 3기", detail: "2026.06.28 ~ 08.31 수료 · 금융데이터인텔리전스 연구실" },
+  ...projects.map((p) => ({ cat: "프로젝트", name: p.title, detail: p.desc, links: p.links })),
+  ...papers.map((p) => ({ cat: "논문", name: p.title, detail: `${p.tag} · ${p.year}`, links: p.links })),
+  { cat: "인턴", name: "FINDS Lab 학부 연구인턴 3기", detail: "2026.06.28 ~ 08.31 수료 · 금융데이터인텔리전스 연구실", links: [["연구실", LINKS.finds]] },
   { cat: "수료", name: "BDAI 데이터 분석 실전반", detail: "지표설계 및 고객분석 · 2026.03 ~ 08 · AI 빅데이터 학회 B.D.A.I 12기" },
   { cat: "자격", name: "ADsP 데이터분석 준전문가", detail: "한국데이터산업진흥원 · 2026.02 취득" },
   { cat: "수료", name: "Codeit 데이터 분석 과정", detail: "코딩캠프 15기 · 7개 토픽 · 2024" },
   { cat: "수료", name: "NSI Global Leadership Challenge", detail: "2024" },
   { cat: "수료", name: "산림 빅데이터 교육", detail: "2024" },
   { cat: "수상", name: "아르테크네 2024 우수상", detail: "가천대학교 아르테크네 공모전 · CSO" },
-  { cat: "수상", name: "꿈꾸는 기업메이커 SGCC 우수상", detail: "SSG 배송 경로 최적화·ESG 전략 · CEO · 2026" },
-  { cat: "공모전", name: "KAI 항공우주논문상 2026", detail: "논문 제출 · 심사 중" },
-  { cat: "공모전", name: "티쳐가드 (교육부·KERIS)", detail: "기획·구현 · 미수상 · 2026" },
+  { cat: "수상", name: "꿈꾸는 기업메이커 SGCC 우수상", detail: "SSG 배송 경로 최적화·ESG 전략 · CEO · 2026", links: [["사이트", LINKS.sgccSite], ["GitHub", LINKS.sgcc]] },
+  { cat: "공모전", name: "KAI 항공우주논문상 2026", detail: "논문 제출 · 심사 중", links: [["공모전 안내", LINKS.kai]] },
+  { cat: "공모전", name: "티쳐가드 (교육부·KERIS)", detail: "기획·구현 · 미수상 · 2026", links: [["GitHub", LINKS.teacherguard], ["배포 앱", LINKS.teacherguardApp]] },
   { cat: "공모전", name: "창원시 BI 프로젝트 공모전", detail: "참여 · 2025" },
   { cat: "활동", name: "Global AI Ambassador", detail: "VANK · 홍보 및 정책 제안 · 우수 활동자" },
   { cat: "활동", name: "다문화·탈북 학생 멘토링", detail: "국어·수학 멘토" },
@@ -95,10 +128,10 @@ const activityItems = [
   { cat: "목표", name: "신구장·신생구단 상권 효과 연구 (DID)", detail: "2026 겨울 예정" },
   { cat: "목표", name: "KBO 신규 야구 지표 개발", detail: "2026 겨울 예정" },
   { cat: "목표", name: "음성 인식 AI 비서", detail: "2026 겨울 예정" },
-  { cat: "연락", name: "yeahisme@gachon.ac.kr", detail: "학교 이메일" },
-  { cat: "연락", name: "yeahisme0527@gmail.com", detail: "개인 이메일" },
-  { cat: "연락", name: "github.com/yeahisme0527", detail: "GitHub" },
-  { cat: "연락", name: "blog.naver.com/oh_yeahisme", detail: "블로그" },
+  { cat: "연락", name: "yeahisme@gachon.ac.kr", detail: "학교 이메일", links: [["메일 보내기", "mailto:yeahisme@gachon.ac.kr"]] },
+  { cat: "연락", name: "yeahisme0527@gmail.com", detail: "개인 이메일", links: [["메일 보내기", "mailto:yeahisme0527@gmail.com"]] },
+  { cat: "연락", name: "github.com/yeahisme0527", detail: "GitHub", links: [["열기", "https://github.com/yeahisme0527"]] },
+  { cat: "연락", name: "blog.naver.com/oh_yeahisme", detail: "블로그", links: [["열기", "https://blog.naver.com/oh_yeahisme"]] },
 ];
 
 // 황금각으로 흩뿌리되, 가운데 사진과 섹션 별 근처는 비워둔다
@@ -120,13 +153,21 @@ const activityStars = (() => {
   return out;
 })();
 
-const bgStars = Array.from({ length: 42 }, (_, i) => ({
-  left: ((i * 37) % 100) + (i % 3) * 0.7,
-  top: ((i * 53) % 100) + (i % 5) * 0.4,
-  big: i % 4 === 0,
-  d: 3 + (i % 5),
-  dl: (i % 7) * 0.6,
-}));
+// 전체 배경의 반짝이는 흰 별 (고정 위치, 서로 다른 속도로 반짝임)
+const bgStars = Array.from({ length: 120 }, (_, i) => {
+  const left = ((i * 37.7) % 100) + ((i * 13) % 7) * 0.13;
+  const top = ((i * 53.3) % 100) + ((i * 11) % 5) * 0.17;
+  const size = i % 9 === 0 ? 3 : i % 4 === 0 ? 2.2 : 1.3;
+  return {
+    left: +left.toFixed(2),
+    top: +top.toFixed(2),
+    size,
+    big: size >= 2.2,
+    sparkle: i % 17 === 0,
+    d: 2.6 + ((i * 7) % 9) * 0.55,
+    dl: ((i * 5) % 11) * 0.45,
+  };
+});
 
 function BackButton({ onClick }) {
   return (
@@ -191,6 +232,13 @@ function Home({ go }) {
                 <em>{s.cat}</em>
                 <b>{s.name}</b>
                 {s.detail}
+                {s.links && s.links.length > 0 && (
+                  <div className="tip-links" onClick={(e) => e.stopPropagation()}>
+                    {s.links.map(([label, href]) => (
+                      <a key={href} href={href} target={href.startsWith("mailto:") ? undefined : "_blank"} rel="noreferrer">{label}</a>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -360,8 +408,20 @@ function Awards({ go }) {
           <div key={group}>
             <h4>{group}</h4>
             <ul className="ls">
-              {rows.map(([t, y]) => (
-                <li key={t}>{t}{y && <span>{y}</span>}</li>
+              {rows.map(([t, y, links]) => (
+                <li key={t}>
+                  <div>
+                    {t}
+                    {links && links.length > 0 && (
+                      <div className="mini-links">
+                        {links.map(([label, href]) => (
+                          <a key={href} href={href} target="_blank" rel="noreferrer">{label}</a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {y && <span>{y}</span>}
+                </li>
               ))}
             </ul>
           </div>
@@ -420,7 +480,11 @@ export default function App() {
     <>
       <div className="bg" aria-hidden="true">
         {bgStars.map((s, i) => (
-          <i key={i} className={s.big ? "b" : ""} style={{ left: `${s.left}%`, top: `${s.top}%`, "--d": `${s.d}s`, "--dl": `${s.dl}s` }} />
+          <i
+            key={i}
+            className={`${s.big ? "b" : ""}${s.sparkle ? " x" : ""}`}
+            style={{ left: `${s.left}%`, top: `${s.top}%`, "--s": `${s.size}px`, "--d": `${s.d}s`, "--dl": `${s.dl}s` }}
+          />
         ))}
       </div>
       <div className="wrap">
