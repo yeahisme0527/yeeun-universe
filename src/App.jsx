@@ -1,0 +1,354 @@
+import { useEffect, useState } from "react";
+import profileImage from "./assets/profile.png";
+
+const profile = {
+  name: "황예은",
+  school: "가천대학교 빅데이터경영전공 3학년",
+  tagline: "데이터를 해석하고, 결과를 지표와 제품으로 만듭니다.",
+  github: "https://github.com/yeahisme0527",
+  blog: "https://blog.naver.com/oh_yeahisme",
+  instagram: "https://www.instagram.com/informa.pick",
+  email: "yeahisme@gachon.ac.kr",
+  personalEmail: "yeahisme0527@gmail.com",
+};
+
+const gpa = [
+  { term: "1-1", v: 4.13 },
+  { term: "1-2", v: 4.34 },
+  { term: "2-1", v: 4.39 },
+  { term: "2-2", v: 4.5 },
+  { term: "3-1", v: 4.41 },
+  { term: "계절", v: 4.5 },
+];
+
+const sectionStars = [
+  { id: "about", cls: "r s1", x: 22, y: 30, title: "소개", sub: "성적, 도구, 관심 분야" },
+  { id: "projects", cls: "s2", x: 78, y: 26, title: "프로젝트 · 9", sub: "분석과 개발" },
+  { id: "research", cls: "s3", x: 82, y: 68, title: "논문 · 2", sub: "KCI 등재" },
+  { id: "awards", cls: "s4", x: 56, y: 88, title: "기록", sub: "공모전, 인턴, 학회" },
+  { id: "goals", cls: "r s5 dim", x: 20, y: 74, title: "다음 탐사", sub: "2026 겨울, 공개 전" },
+  { id: "contact", cls: "s6", x: 42, y: 13, title: "연락", sub: "이메일, 블로그" },
+];
+
+const milestones = [
+  { x: 5, y: 62, when: "2024", what: "아르테크네 우수상", big: true },
+  { x: 16, y: 30, when: "2024", what: "Global AI Ambassador 우수 활동자" },
+  { x: 27, y: 64, when: "2025", what: "오픈소스 팀프로젝트 팀장" },
+  { x: 38, y: 28, when: "2026.02", what: "ADsP 취득" },
+  { x: 49, y: 62, when: "2026 상반기", what: "AHP 논문 KCI 등재", big: true },
+  { x: 60, y: 26, when: "2026 여름", what: "FINDS Lab 연구인턴 · KCI 논문", big: true },
+  { x: 71, y: 60, when: "2026", what: "기업메이커 SGCC 우수상", big: true },
+  { x: 82, y: 28, when: "2026.09", what: "BDAI 실전반 수료" },
+  { x: 94, y: 60, when: "2026", what: "KAI 항공우주논문상 심사 중", dim: true },
+];
+
+const projects = [
+  { year: "2026", title: "TeacherGuard 티쳐가드", desc: "교사를 학부모 갑질로부터 보호하는 AI 플랫폼. 7유형 실시간 탐지, 증거 보관, 신고서 자동 생성. Streamlit 배포.", links: [["GitHub", "https://github.com/yeahisme0527/teacherguard"]] },
+  { year: "2026", title: "ESG-DART 텍스트 분석", desc: "Kiwi·SBERT로 공시 텍스트를 정량화하고 KCGS 등급과의 연관성을 회귀로 8개 가설 검증.", links: [["GitHub", "https://github.com/yeahisme0527/esg-dart-kcgs-analysis"]] },
+  { year: "2026", title: "한국어 영화 리뷰 감성 분석", desc: "PeCab + TF-IDF 듀얼 피처, LR·ComplementNB 앙상블, MCC 기준 threshold 최적화.", links: [["GitHub", "https://github.com/yeahisme0527/korean-movie-review-sentiment"]] },
+  { year: "2026", title: "SSG 배송 경로 최적화", tag: "우수상", desc: "OR-Tools로 이동거리 34% 감소, 연 CO₂ 9.13톤 절감 정량화. ESG 마케팅 전략, 웹 배포. CEO.", links: [["사이트", "https://yeahisme0527.github.io/sgcc/"], ["GitHub", "https://github.com/yeahisme0527/sgcc"]] },
+  { year: "2025", title: "Korean Sentiment Analysis, 오픈소스", desc: "HuggingFace 기반 한국어 감정 분석. 팀장.", links: [["GitHub", "https://github.com/yeahisme0527/opensource-term-project-team45"]] },
+  { year: "2025", title: "Regression · Classification", desc: "데이터마이닝 수업 회귀·분류 모델 비교와 해석.", links: [["GitHub", "https://github.com/yeahisme0527/data_mining_analysis_Regression"]] },
+  { year: "2025", title: "Wine Quality Data Analysis", desc: "전처리·EDA·상관관계 분석.", links: [["GitHub", "https://github.com/yeahisme0527/ai_datascience"]] },
+  { year: "2024", title: "당근마켓 해외 진출 전략", desc: "교내 기업메이커 공모전. 시장 분석과 플랫폼 전략.", links: [["GitHub", "https://github.com/yeahisme0527/karrot-market-global-strategy-project"]] },
+];
+
+const papers = [
+  { year: "2026 여름 · FINDS Lab 연구인턴", title: "환율변동성의 수익률곡선 전달과 경기 예측력의 분리", tag: "KCI 게재 예정", desc: "원/달러 환율변동성이 국채 수익률곡선에 전달되는지, 그 전달이 장단기 금리차를 통제한 뒤에도 경기 수축 국면의 표본외 예측력으로 이어지는지를 2006~2026년 월별 자료로 검증. 표본내 전달과 표본외 예측력이 분리될 수 있음을 보였습니다.", links: [["FINDS Lab 연구실", "https://findslab.github.io/site/"]] },
+  { year: "2026 1학기", title: "경영대학 대학생의 취업 시 기업 선택 요인에 관한 우선순위 분석: AHP 기법을 중심으로", tag: "KCI 등재", desc: "지도교수님·수강생과 공동 집필. 기업 선택 요인을 계층화하고 AHP로 상대적 중요도와 우선순위를 도출했습니다.", links: [] },
+];
+
+const goals = [
+  "신구장·신생구단의 지역 상권 효과 연구 (DID) — 구장 반경 1km 상권 효과를 이중차분으로 추정하고 울산 웨일즈 효과를 예측",
+  "KBO 데이터 기반 신규 야구 지표 — 세이버메트릭스를 응용한 평가 지표 설계·검증",
+  "음성 인식 AI 비서 — 음성 인식, 자연어 이해, 음성 응답 흐름 구현",
+];
+
+const awards = {
+  "공모전·수상": [["꿈꾸는 기업메이커 SGCC — 우수상", "2026"], ["KAI 항공우주논문상 — 심사중", "2026"], ["티쳐가드 — 교육부·KERIS, 미수상", "2026"], ["창원시 BI 프로젝트 공모전", "2025"], ["아르테크네 — 우수상", "2024"]],
+  "인턴·수료·자격": [["FINDS Lab 학부 연구인턴 3기 수료", "2026"], ["BDAI 데이터 분석 실전반 수료", "2026"], ["ADsP 데이터분석 준전문가", "2026"], ["Codeit 데이터 분석 과정 수료", "2024"]],
+  대외활동: [["Global AI Ambassador — 우수 활동자", ""], ["다문화·탈북 학생 멘토링 — 국어·수학", ""], ["주3만 프로그램 관리자 — 6개월", ""]],
+  "학회·스터디": [["BDAI 12기 — 지표설계·고객분석", ""], ["퍼널 분석 스터디", ""]],
+};
+
+const bgStars = Array.from({ length: 42 }, (_, i) => ({
+  left: ((i * 37) % 100) + (i % 3) * 0.7,
+  top: ((i * 53) % 100) + (i % 5) * 0.4,
+  big: i % 4 === 0,
+  d: 3 + (i % 5),
+  dl: (i % 7) * 0.6,
+}));
+
+function BackButton({ onClick }) {
+  return (
+    <button className="back" onClick={onClick}>
+      유니버스로 돌아가기
+    </button>
+  );
+}
+
+function Home({ go }) {
+  const pts = milestones.filter((m) => !m.dim).map((m) => `${m.x},${m.y}`).join(" ");
+  const last = milestones[milestones.length - 2];
+  const dimStar = milestones[milestones.length - 1];
+  return (
+    <>
+      <div className="hero">
+        <p className="eyebrow">Yeeun's cosmos</p>
+        <h1>예은의 유니버스</h1>
+        <p>{profile.tagline} 별을 선택해 들어가세요.</p>
+      </div>
+
+      <div className="map">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <g fill="none" stroke="rgba(255,255,255,.07)" strokeWidth=".25">
+            <ellipse cx="50" cy="50" rx="18" ry="22" />
+            <ellipse cx="50" cy="50" rx="34" ry="40" />
+            <ellipse cx="50" cy="50" rx="50" ry="58" />
+            <line x1="50" y1="0" x2="50" y2="100" />
+            <line x1="0" y1="50" x2="100" y2="50" />
+          </g>
+          <g fill="none" stroke="rgba(255,255,255,.28)" strokeWidth=".35">
+            {sectionStars.map((s) => (
+              <line key={s.id} x1="50" y1="50" x2={s.x} y2={s.y} strokeDasharray={s.cls.includes("dim") ? "1 1" : undefined} stroke={s.cls.includes("dim") ? "rgba(255,255,255,.16)" : undefined} />
+            ))}
+            <line x1="22" y1="30" x2="42" y2="13" />
+            <line x1="78" y1="26" x2="82" y2="68" />
+          </g>
+        </svg>
+        <div className="me">
+          <img src={profileImage} alt="" />
+          <b>{profile.name}</b>
+        </div>
+        {sectionStars.map((s) => (
+          <button key={s.id} className={`st ${s.cls}`} style={{ left: `${s.x}%`, top: `${s.y}%` }} onClick={() => go(s.id)}>
+            <i />
+            <span>
+              <b>{s.title}</b>
+              <small>{s.sub}</small>
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="hint">흐린 별은 아직 공개 전인 계획입니다.</p>
+
+      <div className="const">
+        <h4>예은 별자리</h4>
+        <p>주요 활동과 수상을 시간순으로 이었어요. 큰 별은 수상과 논문, 흐린 별은 심사 중</p>
+        <div className="sky">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <polyline points={pts} fill="none" stroke="rgba(255,255,255,.35)" strokeWidth=".5" />
+            <line x1={last.x} y1={last.y} x2={dimStar.x} y2={dimStar.y} stroke="rgba(255,255,255,.18)" strokeWidth=".5" strokeDasharray="1.2 1.2" />
+          </svg>
+          {milestones.map((m) => (
+            <div key={m.what} className={`star${m.big ? " big" : ""}${m.dim ? " dim" : ""}`} style={{ left: `${m.x}%`, top: `${m.y}%` }}>
+              <i />
+              <span>
+                <em>{m.when}</em>
+                {m.what}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="log">
+        <div><div className="n">4.37<small>/ 4.5</small></div><div className="l">전체 평점, 최고 4.5</div></div>
+        <div><div className="n">2<small>편</small></div><div className="l">KCI 등재 논문</div></div>
+        <div><div className="n">9<small>개</small></div><div className="l">프로젝트</div></div>
+        <div><div className="n">2<small>회</small></div><div className="l">공모전 우수상</div></div>
+      </div>
+    </>
+  );
+}
+
+function About({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>소개</h2>
+      <p className="lead">Python·SQL 분석 프로젝트, 공모전, 금융 연구인턴을 거치며 전처리부터 모델링·해석·배포까지 직접 수행했습니다. 팀장·CEO로 프로젝트를 이끈 경험이 있습니다.</p>
+      <div className="stats">
+        <div><div className="n">4.37</div><div className="l">전체 평점 / 4.5</div></div>
+        <div><div className="n">2</div><div className="l">KCI 등재 논문</div></div>
+        <div><div className="n">9</div><div className="l">프로젝트</div></div>
+      </div>
+      <div className="bars">
+        {gpa.map((g) => (
+          <div key={g.term}>
+            <b>{g.v.toFixed(2)}</b>
+            <i style={{ height: `${((g.v - 3.5) / 1) * 100}%` }} />
+            {g.term}
+          </div>
+        ))}
+      </div>
+      <div className="two">
+        <div>
+          <h4>다루는 도구</h4>
+          <ul className="ls"><li>Python (Pandas, scikit-learn)</li><li>SQL</li><li>Streamlit, HTML</li><li>HuggingFace, Google Colab</li></ul>
+        </div>
+        <div>
+          <h4>관심 분야</h4>
+          <ul className="ls"><li>데이터 기반 지표 설계</li><li>금융 시계열, 인과추론</li><li>비즈니스 애널리틱스</li><li>백엔드 개발</li></ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Cards({ items }) {
+  return (
+    <div className="cards">
+      {items.map((p) => (
+        <div key={p.title} className={`card${p.wide ? " wide" : ""}`}>
+          <div className="y">{p.year}</div>
+          <h3>
+            {p.title}
+            {p.tag && <span className="tag">{p.tag}</span>}
+          </h3>
+          <p>{p.desc}</p>
+          {p.links && p.links.length > 0 && (
+            <div className="links">
+              {p.links.map(([label, href]) => (
+                <a key={href} href={href} target="_blank" rel="noreferrer">{label}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Projects({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>프로젝트</h2>
+      <p className="lead">분석에서 끝내지 않고 결과물을 만듭니다.</p>
+      <Cards items={projects} />
+    </div>
+  );
+}
+
+function Research({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>논문</h2>
+      <p className="lead">KCI 등재 논문 2편.</p>
+      <Cards items={papers.map((p) => ({ ...p, wide: true }))} />
+    </div>
+  );
+}
+
+function Goals({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>다음 탐사</h2>
+      <p className="lead">2026 겨울에 진행할 연구와 개발입니다.</p>
+      <ul className="ls" style={{ marginTop: 18 }}>
+        {goals.map((g) => (
+          <li key={g} className="todo">{g}<span>예정</span></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Awards({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>기록</h2>
+      <p className="lead">공모전, 인턴, 학회, 대외활동.</p>
+      <div className="two">
+        {Object.entries(awards).map(([group, rows]) => (
+          <div key={group}>
+            <h4>{group}</h4>
+            <ul className="ls">
+              {rows.map(([t, y]) => (
+                <li key={t}>{t}{y && <span>{y}</span>}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Contact({ go }) {
+  return (
+    <div className="landed">
+      <BackButton onClick={() => go("home")} />
+      <h2>연락</h2>
+      <p className="lead">편하게 연락 주세요.</p>
+      <div className="cards">
+        <div className="card"><div className="y">학교 이메일</div><h3>{profile.email}</h3><div className="links"><a href={`mailto:${profile.email}`}>메일 보내기</a></div></div>
+        <div className="card"><div className="y">개인 이메일</div><h3>{profile.personalEmail}</h3><div className="links"><a href={`mailto:${profile.personalEmail}`}>메일 보내기</a></div></div>
+        <div className="card"><div className="y">GitHub</div><h3>github.com/yeahisme0527</h3><div className="links"><a href={profile.github} target="_blank" rel="noreferrer">열기</a></div></div>
+        <div className="card"><div className="y">블로그</div><h3>blog.naver.com/oh_yeahisme</h3><div className="links"><a href={profile.blog} target="_blank" rel="noreferrer">열기</a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a></div></div>
+      </div>
+    </div>
+  );
+}
+
+const PAGES = { home: Home, about: About, projects: Projects, research: Research, goals: Goals, awards: Awards, contact: Contact };
+
+export default function App() {
+  const [page, setPage] = useState(() => {
+    const h = window.location.hash.replace("#", "");
+    return PAGES[h] ? h : "home";
+  });
+
+  const go = (id) => {
+    setPage(id);
+    window.location.hash = id === "home" ? "" : id;
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+    document.title = page === "home" ? "Yeeun universe — 황예은" : `${page} — Yeeun universe`;
+  }, [page]);
+
+  useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash.replace("#", "");
+      setPage(PAGES[h] ? h : "home");
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  const Page = PAGES[page];
+
+  return (
+    <>
+      <div className="bg" aria-hidden="true">
+        {bgStars.map((s, i) => (
+          <i key={i} className={s.big ? "b" : ""} style={{ left: `${s.left}%`, top: `${s.top}%`, "--d": `${s.d}s`, "--dl": `${s.dl}s` }} />
+        ))}
+      </div>
+      <div className="wrap">
+        <div className="top">
+          <div className="who">
+            <button onClick={() => go("home")} aria-label="홈으로">
+              <img src={profileImage} alt="황예은 프로필" />
+              <div>
+                <b>{profile.name}</b>
+                <span>{profile.school}</span>
+              </div>
+            </button>
+          </div>
+          <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+
+        <Page go={go} />
+
+        <p className="foot">© 2026 황예은 · Yeeun universe</p>
+      </div>
+    </>
+  );
+}
