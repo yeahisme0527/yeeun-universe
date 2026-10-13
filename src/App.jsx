@@ -71,6 +71,55 @@ const awards = {
   "학회·스터디": [["BDAI 12기 — 지표설계·고객분석", ""], ["퍼널 분석 스터디", ""]],
 };
 
+// 사진 주위에 흩뿌리는 작은 별: 활동·논문·수료·수상·연락 전부
+const activityItems = [
+  ...projects.map((p) => ({ cat: "프로젝트", name: p.title, detail: p.desc })),
+  ...papers.map((p) => ({ cat: "논문", name: p.title, detail: `${p.tag} · ${p.year}` })),
+  { cat: "인턴", name: "FINDS Lab 학부 연구인턴 3기", detail: "2026.06.28 ~ 08.31 수료 · 금융데이터인텔리전스 연구실" },
+  { cat: "수료", name: "BDAI 데이터 분석 실전반", detail: "지표설계 및 고객분석 · 2026.03 ~ 08 · AI 빅데이터 학회 B.D.A.I 12기" },
+  { cat: "자격", name: "ADsP 데이터분석 준전문가", detail: "한국데이터산업진흥원 · 2026.02 취득" },
+  { cat: "수료", name: "Codeit 데이터 분석 과정", detail: "코딩캠프 15기 · 7개 토픽 · 2024" },
+  { cat: "수료", name: "NSI Global Leadership Challenge", detail: "2024" },
+  { cat: "수료", name: "산림 빅데이터 교육", detail: "2024" },
+  { cat: "수상", name: "아르테크네 2024 우수상", detail: "가천대학교 아르테크네 공모전 · CSO" },
+  { cat: "수상", name: "꿈꾸는 기업메이커 SGCC 우수상", detail: "SSG 배송 경로 최적화·ESG 전략 · CEO · 2026" },
+  { cat: "공모전", name: "KAI 항공우주논문상 2026", detail: "논문 제출 · 심사 중" },
+  { cat: "공모전", name: "티쳐가드 (교육부·KERIS)", detail: "기획·구현 · 미수상 · 2026" },
+  { cat: "공모전", name: "창원시 BI 프로젝트 공모전", detail: "참여 · 2025" },
+  { cat: "활동", name: "Global AI Ambassador", detail: "VANK · 홍보 및 정책 제안 · 우수 활동자" },
+  { cat: "활동", name: "다문화·탈북 학생 멘토링", detail: "국어·수학 멘토" },
+  { cat: "활동", name: "주3만 프로그램 관리자", detail: "참여자 20명 보고서 취합·주간 보고 · 6개월" },
+  { cat: "활동", name: "캐치드림 진로탐색 프로젝트", detail: "참여" },
+  { cat: "학회", name: "BDAI 12기", detail: "지표 설계 및 고객 분석 학습" },
+  { cat: "스터디", name: "퍼널 분석 스터디", detail: "조원들과 퍼널 분석 학습" },
+  { cat: "목표", name: "신구장·신생구단 상권 효과 연구 (DID)", detail: "2026 겨울 예정" },
+  { cat: "목표", name: "KBO 신규 야구 지표 개발", detail: "2026 겨울 예정" },
+  { cat: "목표", name: "음성 인식 AI 비서", detail: "2026 겨울 예정" },
+  { cat: "연락", name: "yeahisme@gachon.ac.kr", detail: "학교 이메일" },
+  { cat: "연락", name: "yeahisme0527@gmail.com", detail: "개인 이메일" },
+  { cat: "연락", name: "github.com/yeahisme0527", detail: "GitHub" },
+  { cat: "연락", name: "blog.naver.com/oh_yeahisme", detail: "블로그" },
+];
+
+// 황금각으로 흩뿌리되, 가운데 사진과 섹션 별 근처는 비워둔다
+const activityStars = (() => {
+  const out = [];
+  let i = 0;
+  while (out.length < activityItems.length && i < 400) {
+    const a = (i * 137.508 * Math.PI) / 180;
+    const r = 17 + (i % 6) * 5.2;
+    const x = 50 + r * Math.cos(a) * 1.05;
+    const y = 50 + r * Math.sin(a) * 0.95;
+    i += 1;
+    if (x < 5 || x > 95 || y < 7 || y > 93) continue;
+    const nearSection = sectionStars.some((s) => Math.hypot(s.x - x, s.y - y) < 11);
+    const nearOther = out.some((o) => Math.hypot(o.x - x, o.y - y) < 6);
+    if (nearSection || nearOther) continue;
+    out.push({ ...activityItems[out.length], x: +x.toFixed(1), y: +y.toFixed(1) });
+  }
+  return out;
+})();
+
 const bgStars = Array.from({ length: 42 }, (_, i) => ({
   left: ((i * 37) % 100) + (i % 3) * 0.7,
   top: ((i * 53) % 100) + (i % 5) * 0.4,
@@ -121,6 +170,32 @@ function Home({ go }) {
           <img src={profileImage} alt="" />
           <b>{profile.name}</b>
         </div>
+        <div className="minis">
+        {activityStars.map((s, i) => {
+          const key = `a${i}`;
+          return (
+            <div
+              key={key}
+              className={`star mini${s.y < 40 ? " below" : ""}${s.x > 82 ? " edge-r" : s.x < 18 ? " edge-l" : ""}${open === key ? " open" : ""}`}
+              style={{ left: `${s.x}%`, top: `${s.y}%` }}
+              tabIndex={0}
+              role="button"
+              aria-expanded={open === key}
+              aria-label={`${s.cat}: ${s.name}`}
+              onClick={() => setOpen(open === key ? null : key)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(open === key ? null : key); } if (e.key === "Escape") setOpen(null); }}
+              onBlur={() => setOpen((o) => (o === key ? null : o))}
+            >
+              <i />
+              <div className="tip" role="tooltip">
+                <em>{s.cat}</em>
+                <b>{s.name}</b>
+                {s.detail}
+              </div>
+            </div>
+          );
+        })}
+        </div>
         {sectionStars.map((s) => (
           <button key={s.id} className={`st ${s.cls}`} style={{ left: `${s.x}%`, top: `${s.y}%` }} onClick={() => go(s.id)}>
             <i />
@@ -131,7 +206,7 @@ function Home({ go }) {
           </button>
         ))}
       </div>
-      <p className="hint">흐린 별은 아직 공개 전인 계획입니다.</p>
+      <p className="hint">큰 별은 섹션으로 들어가는 문, 작은 별은 올리거나 눌러보면 무엇인지 알려줍니다. 흐린 별은 아직 공개 전인 계획입니다.</p>
 
       <div className="const">
         <h4>예은 별자리</h4>

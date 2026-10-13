@@ -53,7 +53,7 @@ button { font: inherit; color: inherit; }
 .hero p { color: var(--muted); margin-top: 8px; font-size: .98rem; }
 
 /* ---------- star map ---------- */
-.map { position: relative; height: 480px; margin-top: 22px; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+.map { position: relative; height: 480px; margin-top: 22px; border: 1px solid var(--line); border-radius: 22px; overflow: visible; }
 .map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .me { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .me img {
@@ -88,6 +88,17 @@ button { font: inherit; color: inherit; }
 .star { cursor: default; }
 .star:hover i, .star:focus-visible i { background: var(--accent); box-shadow: 0 0 0 8px rgba(207,217,255,.16), 0 0 20px rgba(207,217,255,.8); }
 .star:focus-visible { outline: none; }
+
+/* small activity stars around the photo */
+.minis { position: absolute; inset: 0; pointer-events: none; }
+.minis .star { pointer-events: auto; }
+.star.mini { z-index: 2; }
+.star.mini i { width: 5px; height: 5px; opacity: .85; box-shadow: 0 0 0 3px rgba(255,255,255,.08), 0 0 8px rgba(255,255,255,.45); }
+.star.mini:hover i, .star.mini:focus-visible i, .star.mini.open i { width: 8px; height: 8px; opacity: 1; }
+.star.mini .tip { width: 230px; }
+.star.mini .tip em { margin: 0 0 2px; }
+.star.mini .tip b { margin-bottom: 3px; }
+.star.mini:hover, .star.mini:focus-visible, .star.mini.open { z-index: 30; }
 
 /* tooltip (signpost) */
 .star .tip {
@@ -159,6 +170,8 @@ button { font: inherit; color: inherit; }
   .map svg { display: none; }
   .me { position: static; transform: none; grid-column: span 2; margin-bottom: 8px; }
   .st { position: static; transform: none; flex-direction: row; }
+  .minis { position: static; grid-column: span 2; display: flex; flex-wrap: wrap; gap: 14px 16px; justify-content: center; padding: 6px 0 2px; }
+  .star.mini { position: static; transform: none; }
   .log { grid-template-columns: 1fr 1fr; }
   .landed { padding: 24px 18px; }
   .cards, .stats, .two { grid-template-columns: 1fr; }
