@@ -117,6 +117,7 @@ button { font: inherit; color: inherit; }
 .tip-links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .star.open .tip { pointer-events: auto; }
 .ls li > div { flex: 1; }
+.ls .detail { color: var(--muted); font-size: .82rem; margin-top: 3px; line-height: 1.5; }
 
 /* tooltip (signpost) */
 .star .tip {

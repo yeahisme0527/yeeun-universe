@@ -23,7 +23,10 @@ const LINKS = {
   kaiPdf: DOC("kai-2026-paper.pdf"),
   kaiNbHtml: DOC("kai-2026-reproduction.html"),
   kaiNb: DOC("kai-2026-reproduction.ipynb"),
+  findsCert: DOC("finds-lab-certificate.pdf"),
 };
+// 수료증 이미지: public/certs/ 에 파일을 넣으면 자동으로 "수료증 보기" 버튼이 생깁니다
+const CERT = (f) => `${import.meta.env.BASE_URL}certs/${f}`;
 
 const profile = {
   name: "황예은",
@@ -99,10 +102,12 @@ const awards = {
     ["아르테크네 — 우수상", "2024"],
   ],
   "인턴·수료·자격": [
-    ["FINDS Lab 학부 연구인턴 3기 수료", "2026", [["연구실", LINKS.finds], ["논문 PDF", LINKS.fxPdf]]],
-    ["BDAI 데이터 분석 실전반 수료", "2026"],
-    ["ADsP 데이터분석 준전문가", "2026"],
-    ["Codeit 데이터 분석 과정 수료", "2024"],
+    ["FINDS Lab 학부 연구인턴 3기 수료", "2026", [["연구실", LINKS.finds], ["논문 PDF", LINKS.fxPdf], ["연구활동 증명서", LINKS.findsCert]], "가천대 금융데이터인텔리전스 연구실 · 2026.06.22 ~ 08.31 · 지정 연구 과제 수행"],
+    ["BDAI 데이터 분석 실전반 수료", "2026", [], "AI 빅데이터 학회 B.D.A.I 12기 · 지표설계 및 고객분석 · 2026.03.03 ~ 08.17 (수료 2026.09.03)"],
+    ["ADsP 데이터분석 준전문가", "2026", [], "한국데이터산업진흥원 · 2026.02 취득"],
+    ["2025 글로벌리더십 챌린지 수료", "2025", [], "재단법인 NSI 주최 · 한국경제인협회·유네스코 아태 국제이해교육원·한국경제신문 후원 · 온라인 클래스 부문 우수 성적 · 2025.02.12"],
+    ["2024 산림빅데이터 활용 우수사례 발굴 교육 수료", "2024", [], "한국임업진흥원(Kofpi) 기본과정 · 2024.02.19 ~ 22 (4일/16시간) · 산림빅데이터 이해·활용, 빅데이터 개론, 생성형 AI 활용, 드론·AI의 산림 적용, 비즈니스 모델(NABC)·시장조사(페르미 추정)·사업계획서 작성"],
+    ["코드잇 대학생 코딩 캠프 15기 수료", "2024", [], "2024.02.14 ~ 03.12 · 토픽: 프로그래밍 오버뷰, 프로그래밍 핵심 개념 in Python, 프로그래머의 세계 이해하기, 데이터 분석 프로젝트(대형 마트 고객 데이터), 웹 퍼블리싱 프로젝트(MBTI별 좋아하는 컬러), 반응형 웹 퍼블리싱"],
   ],
   대외활동: [["Global AI Ambassador — 우수 활동자", ""], ["다문화·탈북 학생 멘토링 — 국어·수학", ""], ["주3만 프로그램 관리자 — 6개월", ""]],
   "학회·스터디": [["BDAI 12기 — 지표설계·고객분석", ""], ["퍼널 분석 스터디", ""]],
@@ -112,12 +117,12 @@ const awards = {
 const activityItems = [
   ...projects.map((p) => ({ cat: "프로젝트", name: p.title, detail: p.desc, links: p.links })),
   ...papers.map((p) => ({ cat: "논문", name: p.title, detail: `${p.tag} · ${p.year}`, links: p.links })),
-  { cat: "인턴", name: "FINDS Lab 학부 연구인턴 3기", detail: "2026.06.28 ~ 08.31 수료 · 금융데이터인텔리전스 연구실", links: [["연구실", LINKS.finds]] },
-  { cat: "수료", name: "BDAI 데이터 분석 실전반", detail: "지표설계 및 고객분석 · 2026.03 ~ 08 · AI 빅데이터 학회 B.D.A.I 12기" },
+  { cat: "인턴", name: "FINDS Lab 학부 연구인턴 3기", detail: "2026.06.22 ~ 08.31 수료 · 금융데이터인텔리전스 연구실", links: [["연구실", LINKS.finds], ["증명서", LINKS.findsCert]] },
+  { cat: "수료", name: "BDAI 데이터 분석 실전반", detail: "지표설계 및 고객분석 · 2026.03.03 ~ 08.17 · AI 빅데이터 학회 B.D.A.I 12기" },
   { cat: "자격", name: "ADsP 데이터분석 준전문가", detail: "한국데이터산업진흥원 · 2026.02 취득" },
-  { cat: "수료", name: "Codeit 데이터 분석 과정", detail: "코딩캠프 15기 · 7개 토픽 · 2024" },
-  { cat: "수료", name: "NSI Global Leadership Challenge", detail: "2024" },
-  { cat: "수료", name: "산림 빅데이터 교육", detail: "2024" },
+  { cat: "수료", name: "코드잇 대학생 코딩 캠프 15기", detail: "2024.02.14 ~ 03.12 · 프로그래밍 오버뷰, Python 핵심 개념, 데이터 분석 프로젝트, 웹 퍼블리싱 등" },
+  { cat: "수료", name: "2025 글로벌리더십 챌린지", detail: "재단법인 NSI · 온라인 클래스 부문 우수 성적 · 2025.02.12" },
+  { cat: "수료", name: "2024 산림빅데이터 활용 우수사례 발굴 교육", detail: "한국임업진흥원 기본과정 · 2024.02.19 ~ 22 (16시간) · 산림빅데이터·AI·비즈니스 모델" },
   { cat: "수상", name: "아르테크네 2024 우수상", detail: "가천대학교 아르테크네 공모전 · CSO" },
   { cat: "수상", name: "꿈꾸는 기업메이커 SGCC 우수상", detail: "SSG 배송 경로 최적화·ESG 전략 · CEO · 2026", links: [["사이트", LINKS.sgccSite], ["GitHub", LINKS.sgcc]] },
   { cat: "공모전", name: "티쳐가드 (교육부·KERIS)", detail: "기획·구현 · 미수상 · 2026", links: [["GitHub", LINKS.teacherguard], ["배포 앱", LINKS.teacherguardApp]] },
@@ -411,10 +416,11 @@ function Awards({ go }) {
           <div key={group}>
             <h4>{group}</h4>
             <ul className="ls">
-              {rows.map(([t, y, links]) => (
+              {rows.map(([t, y, links, detail]) => (
                 <li key={t}>
                   <div>
                     {t}
+                    {detail && <div className="detail">{detail}</div>}
                     {links && links.length > 0 && (
                       <div className="mini-links">
                         {links.map(([label, href]) => (
