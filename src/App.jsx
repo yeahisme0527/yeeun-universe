@@ -20,6 +20,9 @@ const LINKS = {
   ahpPdf: DOC("ahp-paper-jcct-2026.pdf"),
   fxPdf: DOC("fx-volatility-yield-curve.pdf"),
   tgPdf: DOC("teacherguard-overview.pdf"),
+  kaiPdf: DOC("kai-2026-paper.pdf"),
+  kaiNbHtml: DOC("kai-2026-reproduction.html"),
+  kaiNb: DOC("kai-2026-reproduction.ipynb"),
 };
 
 const profile = {
@@ -64,7 +67,7 @@ const milestones = [
 ];
 
 const projects = [
-  { year: "2026 · KAI 항공우주논문상 (SW 분야)", title: "AI 기반 품질위험 회피형 홀로닉 자율제조 시스템", tag: "심사중", desc: "항공기 구조물 무인 가공공장을 대상으로, 기존 홀로닉 실행체계에 품질위험 예측 → 요인별 대응 → 사전 검증 → 실패 시 복구를 잇는 예측–설명–대응 폐루프 지능 계층을 설계하고 시뮬레이션으로 검증. 고위험 조건에서 예방 교체 규칙 대비 이상률 2.3~3.1%p·공구 교체 약 12% 감소, 예측기는 공개 밀링 데이터로 AUC 0.89(구간)·0.79(실험) 확인, 장애 주입 SIL 시험으로 복구 동작 검증.", links: [["공모전 안내", LINKS.kai]] },
+  { year: "2026 · KAI 항공우주논문상 (SW 분야)", title: "AI 기반 품질위험 회피형 홀로닉 자율제조 시스템", tag: "심사중", desc: "항공기 구조물 무인 가공공장을 대상으로, 기존 홀로닉 실행체계에 품질위험 예측 → 요인별 대응 → 사전 검증 → 실패 시 복구를 잇는 예측–설명–대응 폐루프 지능 계층을 설계하고 시뮬레이션으로 검증. 고위험 조건에서 예방 교체 규칙 대비 이상률 2.3~3.1%p·공구 교체 약 12% 감소, 예측기는 공개 밀링 데이터로 AUC 0.89(구간)·0.79(실험) 확인, 장애 주입 SIL 시험으로 복구 동작 검증. 논문 전 과정을 재현하는 노트북(109 cells, 실행 결과·해석 포함)을 함께 공개합니다.", links: [["논문 PDF", LINKS.kaiPdf], ["재현 노트북 보기", LINKS.kaiNbHtml], ["ipynb 다운로드", LINKS.kaiNb], ["공모전 안내", LINKS.kai]] },
   { year: "2026", title: "TeacherGuard 티쳐가드", desc: "교사를 학부모 갑질로부터 보호하는 AI 플랫폼. 7유형 실시간 탐지, 증거 보관, 신고서 자동 생성. Streamlit 배포.", links: [["GitHub", LINKS.teacherguard], ["배포 앱", LINKS.teacherguardApp], ["정리 문서 PDF", LINKS.tgPdf]] },
   { year: "2026", title: "ESG-DART 텍스트 분석", desc: "Kiwi·SBERT로 공시 텍스트를 정량화하고 KCGS 등급과의 연관성을 회귀로 8개 가설 검증.", links: [["GitHub", LINKS.esg]] },
   { year: "2026", title: "한국어 영화 리뷰 감성 분석", desc: "PeCab + TF-IDF 듀얼 피처, LR·ComplementNB 앙상블, MCC 기준 threshold 최적화.", links: [["GitHub", LINKS.movie]] },
